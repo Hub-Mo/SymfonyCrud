@@ -24,10 +24,11 @@ class MovieController extends AbstractController
         // findAll() = SELECT * FROM movies  -> $movies = $repo->findAll();
         // find() = SELECT * FROM movies WHERE id = 10  -> $movies = $repo->findBy(['id' => '10']);
         // findBy() = SELECT * FROM movies ORDER BY id DESC  -> $movies = $repo->findBy([], ['id' => 'DESC']);
-        $repo = $this->em->getRepository(Movie::class);
-        $movies = $repo->findBy([], ['id' => 'DESC']);
+        // findOneBy() = SELECT * FROM movies WHERE id = 10 AND title = 'The Dark Knight' ORDER BY id DESC -> $movies = $repo->findOneBy(['id' => 10, 'title' => 'The Dark Knight' ], ['id' => 'DESC'])
+        // count() = SELECT COUNT() FROM movies WHERE id = 11 -> $movies = $repo->count(['id' => 11])
 
-        dd($movies);
+        $repo = $this->em->getRepository(Movie::class);
+        $movies = $repo->findOneBy(['id' => 10, 'title' => 'The Dark Knight' ], ['id' => 'DESC']);
 
         return $this->render('movie/index.html.twig');
     }
