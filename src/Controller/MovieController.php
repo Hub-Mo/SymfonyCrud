@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Movie;
+use App\Form\MovieFormType;
 use App\Repository\MovieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -38,6 +40,26 @@ class MovieController extends AbstractController
         // $movies = $repo->findOneBy(['id' => 10, 'title' => 'The Dark Knight' ], ['id' => 'DESC']);
 
         // return $this->render('movie/index.html.twig');
+
+    #[Route('/movies/create', name: 'create_movie')]
+    public function create(Request $request): Response
+    {
+        $movie = new Movie();
+        $form = $this->createForm(MovieFormType::class, $movie);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $newMovie = $form->getData();
+
+            dd($newMovie);
+            exit;
+        }
+
+        return $this->render('/movie/create.html.twig', [
+            'form' => 
+        $form->createView()]);
+    }
 
     #[Route('/movies/{id}', methods: ['GET'], name: 'show_movie')]
     public function show($id): Response
