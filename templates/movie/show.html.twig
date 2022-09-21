@@ -26,7 +26,7 @@
             {{ movie.description }}
         </p>
 
-        {% if app.user and movie.userId == app.user.id %}
+       {# {% if app.user and movie.userId == app.user.id %} #}
             <a 
                 href="/movies/edit/{{ movie.id }}">
                 Edit Movie
@@ -36,6 +36,6 @@
                 href="/movies/delete/{{ movie.id }}">
                 Delete Movie
             </a>
-        {% endif %}
+        {# {% endif %} #}
     </div>
 {% endblock %}
